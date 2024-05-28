@@ -15,7 +15,7 @@ const products = [
   ]
   
   export default function Products() {
-    <Topnavbar />
+    
     const { data, error, isLoading } = useGetProductByNameQuery();
     return (
       <div className="bg-white">

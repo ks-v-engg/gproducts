@@ -2,5 +2,6 @@ export const grpoductsrouter = {
     login : "/login",
     productlist : "/productslist",
     createaccount : "/createaccount",
-    shoppingpage : "/shoppingpage"
+    shoppingpage : "/shoppingpage",
+    createuser : "/createuser"
 }

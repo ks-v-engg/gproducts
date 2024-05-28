@@ -12,9 +12,19 @@ export const gpstoreApi = createApi({
     getuserdetails: builder.query({
       query: () => `/users`,
     }),
+
+    // To add a new user
+    createuser : builder.mutation({
+      query: (payload) => ({
+          url: "/users",
+          method: "POST",
+          body: payload
+      })
+  }),
+
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetProductByNameQuery,useGetuserdetailsQuery } = gpstoreApi
+export const { useGetProductByNameQuery,useGetuserdetailsQuery,useCreateuserMutation } = gpstoreApi

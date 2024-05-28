@@ -6,6 +6,7 @@ import { gpstoreApi } from "./Redux/Services/gproducts";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import Shoppingpage from "./components/shoppingpage";
+import Createuser from "./components/createuser";
 
 export const store = configureStore({
   reducer: {
@@ -49,6 +50,11 @@ const objrouter = createBrowserRouter([
   path : grpoductsrouter.shoppingpage,
   element : <Shoppingpage />,
   loader : protectedrouteloader
+},
+{
+  path : grpoductsrouter.createaccount,
+  element : <Createuser />,
+  loader : publicrouteloader
 },
 ])
 function App() {
