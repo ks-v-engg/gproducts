@@ -18,10 +18,10 @@ const Showmodal = ({ isOpen, onClose, product }) => {
             <div className="mt-3 text-center">
               <h3 className="text-lg leading-6 font-medium text-gray-900">
                 
-                {product?.name || 'Loading...'}
+                {product?product.Name:'not asinged' || 'Loading...'}
               </h3>
               <p className="mt-2 text-sm text-gray-500">
-                {product?.description || 'Loading...'}
+                {product?product.Description:'' || 'Loading...'}
               </p>
             </div>
           </div>

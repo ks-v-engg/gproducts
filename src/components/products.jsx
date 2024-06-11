@@ -12,19 +12,17 @@ import Showmodal from './showmodal';
   const { data, error, isLoading } = useGetProductByNameQuery();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState(null);
-  const { data: productData, error: productError, isLoading: productLoading } = useGetProductByIdQuery(selectedProductId, {
-    skip: !selectedProductId,
-  });
-
-  const handleViewProduct = (productId) => {
-    setSelectedProductId(productId);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+ 
+  const handleViewProduct = (product) => {
+    console.log(product);
+    setSelectedProduct(product);
     setIsModalVisible(true);
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
-    setSelectedProductId(null);
+    setSelectedProduct(null);
   };
     return (
       <div className="bg-white">
@@ -55,11 +53,11 @@ import Showmodal from './showmodal';
                   </div>
           <div className="absolute bottom-0 left-0 right-0 p-4 bg-white bg-opacity-75 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex justify-between">
-              <button  onClick={() => handleViewProduct(product.id)} className="text-blue-600 underline">View Product</button>
+              <button  onClick={() => handleViewProduct(product)} className="text-blue-600 underline">View Product</button>
               <button className="px-1 py-1 bg-blue-600 text-white rounded-md">Buy Now</button>
             </div>
           </div>
-             <Showmodal isOpen={isModalVisible} onClose={closeModal} product={productData} />
+             <Showmodal isOpen={isModalVisible} onClose={closeModal} product={selectedProduct} />
              </div>
             </div>
             ))}
