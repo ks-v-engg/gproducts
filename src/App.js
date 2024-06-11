@@ -8,6 +8,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import Shoppingpage from "./components/shoppingpage";
 import Createuser from "./components/createuser";
 
+
+
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
@@ -34,7 +36,6 @@ const objrouter = createBrowserRouter([
   path : grpoductsrouter.login,
   element : <LoginPage />,
   loader : publicrouteloader
-
 },
 {
   path : "/",

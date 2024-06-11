@@ -4,14 +4,19 @@ import { grpoductsrouter } from "../Router/router";
 import { useGetuserdetailsQuery } from "../Redux/Services/gproducts";
 
 
-export default function Loginpage() {
 
+
+const Loginpage = () => {
+
+  
    const [useremail,setEmail] = useState('');
    const [userpassword,setPassword] = useState('');
 
     const {data, error, isloading } = useGetuserdetailsQuery();
 
     const loginnavi = useNavigate();
+
+ 
 
     const btnsubmit = (event) => {
         event.preventDefault();
@@ -21,9 +26,10 @@ export default function Loginpage() {
        if (Checkcredential.length  > 0 ){
         localStorage.setItem('loginstatus','sucess');
         loginnavi(grpoductsrouter.shoppingpage);
+        
       } else {
         localStorage.setItem('loginstatus','notsucess');
-        alert('Login usucessfull')
+     
       }
     }
     return (
@@ -36,7 +42,15 @@ export default function Loginpage() {
           <body class="h-full">
           ```
         */}
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+
+          <div className=" flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-1/2 flex-col float-left">
+                  <img
+                        className="sm:mx-auto sm:w-full sm:max-w-sm"
+                        src="./Assets/createuserpage.svg"
+                        alt="Your Company"
+                      />
+          </div>
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-1/2 p-4 float-right">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-10 w-auto"
@@ -109,4 +123,4 @@ export default function Loginpage() {
       </>
     )
   }
-  
+  export default Loginpage;

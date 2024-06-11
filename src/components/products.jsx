@@ -1,28 +1,37 @@
-import { useGetProductByNameQuery } from "../Redux/Services/gproducts"
+import { Fragment, useState } from 'react'
+import { useGetProductByIdQuery, useGetProductByNameQuery } from "../Redux/Services/gproducts"
 import Topnavbar from "./topnavbar";
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import ProductInformation from './productinformationpage';
+import Modal from './modal';
+import Showmodal from './showmodal';
 
-const products = [
-    {
-      id: 1,
-      name: 'Basic Tee',
-      href: '#',
-      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-      imageAlt: "Front of men's Basic Tee in black.",
-      price: '$35',
-      color: 'Black',
-    },
-    // More products...
-  ]
-  
   export default function Products() {
     
-    const { data, error, isLoading } = useGetProductByNameQuery();
+  const { data, error, isLoading } = useGetProductByNameQuery();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const { data: productData, error: productError, isLoading: productLoading } = useGetProductByIdQuery(selectedProductId, {
+    skip: !selectedProductId,
+  });
+
+  const handleViewProduct = (productId) => {
+    setSelectedProductId(productId);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedProductId(null);
+  };
     return (
       <div className="bg-white">
-        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <div className="mx-auto max-w-2xl px-4 py-4 sm:px-4 sm:py-4 lg:max-w-7xl lg:px-4">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
   
-          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4">
            {!error && !isLoading && data.map((product) => (
               <div key={product.id} className="group relative">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
@@ -36,15 +45,23 @@ const products = [
                   <div>
                     <h3 className="text-sm text-gray-700">
                       <a href={product.href}>
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        {product.Name}
+                        <span aria-hidden="true" className="absolute inset-0" /> {product.Name}
                       </a>
                     </h3>
-                    <p className="mt-1 text-sm text-gray-500">{product.Color}</p>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">{product.Price}</p>
-                </div>
-              </div>
+                  <div className="group-hover:opacity-0"> 
+                    <p className="mt-1 text-sm text-gray-500 group-hover:opacity-0">{product.Color}</p>
+                    <p className="text-sm font-medium text-gray-900 group-hover:opacity-0">{'Rs. '+product.Price}</p>
+                  </div>
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-white bg-opacity-75 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex justify-between">
+              <button  onClick={() => handleViewProduct(product.id)} className="text-blue-600 underline">View Product</button>
+              <button className="px-1 py-1 bg-blue-600 text-white rounded-md">Buy Now</button>
+            </div>
+          </div>
+             <Showmodal isOpen={isModalVisible} onClose={closeModal} product={productData} />
+             </div>
+            </div>
             ))}
           </div>
         </div>

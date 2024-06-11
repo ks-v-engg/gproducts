@@ -2,8 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useCreateuserMutation } from "../Redux/Services/gproducts"
 import { grpoductsrouter } from "../Router/router";
 import React, { useState } from "react";
-
-
 /*
   This example requires some changes to your config:
   
@@ -29,11 +27,14 @@ export default function Createuser() {
 
     const [createaccount, {error,isloading}] = useCreateuserMutation();
 
-    const btncreateuser = () => { 
+    const btncreateuser = (event) => { 
+        event.preventDefault();
         createaccount({ name : username,email : email, password : password }).then(res => {
             if (res.data) {
                 alert("User created Successfully!");
                 navigate(grpoductsrouter.login);
+            } else {
+              alert("Something went wrong")
             }
         })
     }
@@ -47,6 +48,14 @@ export default function Createuser() {
           <body class="h-full">
           ```
         */}
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-14 lg:px-8 md:w-1/2 flex-col float-left">
+                  <img
+                        className="sm:mx-auto sm:w-full sm:max-w-sm"
+                        src="./Assets/createuserpage.svg"
+                        alt="Your Company"
+                      />
+        </div>
+        <div>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
@@ -54,18 +63,17 @@ export default function Createuser() {
               src="./Assets/googleicon.svg"
               alt="Your Company"
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 className="mt-2 text-center text-2xl font-bold leading-6 tracking-tight text-gray-900">
               Welcome to Google Store!
             </h2>
-
             <h2 className="text-base font-semibold text-gray-900 mb-6 text-center">Register your account</h2>
           </div>
   
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6">
+          <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form className="space-y-4" onSubmit={btncreateuser}>
 
             <div>
-                <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="username" className="block text-sm font-medium leading-4 text-gray-900">
                   Username
                 </label>
                 <div className="mt-2">
@@ -99,7 +107,6 @@ export default function Createuser() {
                  />
                 </div>
               </div>
-  
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
@@ -141,13 +148,14 @@ export default function Createuser() {
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  onSubmit={btncreateuser}
+
                 >
                   Create Account
                 </button>
               </div>
             </form>
           </div>
+        </div>
         </div>
       </>
     )
