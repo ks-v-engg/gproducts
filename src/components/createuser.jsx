@@ -48,7 +48,7 @@ export default function Createuser() {
           <body class="h-full">
           ```
         */}
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-14 lg:px-8 md:w-1/2 flex-col float-left">
+        <div className="flex min-h-full flex-1 justify-center px-6 py-14 lg:px-8 md:w-1/2 flex-col float-left">
                   <img
                         className="sm:mx-auto sm:w-full sm:max-w-sm"
                         src="./Assets/createuserpage.svg"
