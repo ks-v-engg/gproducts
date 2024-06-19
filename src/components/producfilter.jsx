@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useGetProductByIdQuery } from '../Redux/Services/gproducts';
 import { selectFilteredProducts } from '../Redux/Services/gproducts/selectors';
 import { toggleCategory } from '../Redux/Services/gproducts/filterSlice';
+import { useGetProductsQuery } from '../Redux/Services/gproducts/productsApi';
 
 
 const typeFilter = {
@@ -20,18 +21,19 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Productfilter() {
+export default function Productfilter(store) {
 
-  // const dispatch = useDispatch();
-  // const { data: products, error, isLoading } = useGetProductByIdQuery();
-  // const filteredProducts = useSelector(selectFilteredProducts);
+  const dispatch = useDispatch();
+  const { data: filterproducts, filtererror, filterisLoading } = useGetProductsQuery();
+  const { data: products, error, isLoading } = useGetProductByIdQuery();
+  const filteredProducts = useSelector(selectFilteredProducts);
 
-  // const handleCategoryChange = (category) => {
-  //   dispatch(toggleCategory(category));
-  // };
+  const handleCategoryChange = (category) => {
+    dispatch(toggleCategory(category));
+  };
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Error fetching products</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching products</div>;
 
   return (
     <div className="bg-white p-4">

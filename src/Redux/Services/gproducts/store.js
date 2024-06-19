@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { productsApi } from '../features/products/productsApi';
-import filterReducer from '../features/filter/filterSlice';
+import { productsApi } from './productsApi';
+import filterReducer from '.filterSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,3 +10,5 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
 });
+
+
